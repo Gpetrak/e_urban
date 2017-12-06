@@ -1,0 +1,6 @@
+# Build artifacts
+*.pyc
+# Temporary files
+*.swp
+
+migrations
