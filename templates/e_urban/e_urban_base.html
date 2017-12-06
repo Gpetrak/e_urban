@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+  {% block body %}
+  <h2>e-Πολεοδομία</h2>
+  <hr>
+
+        <div class="container">
+
+            <div class="row">
+
+                {% block content %}{% endblock %}
+
+            </div>
+
+        </div>
+
+  {% endblock body %}
+  {% block sidebar %}{% endblock sidebar %}
+{% endblock body_outer %}
