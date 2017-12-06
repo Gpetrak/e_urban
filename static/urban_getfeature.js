@@ -31,16 +31,6 @@ Ext.application({
                 /* Base Layers */
                 new OpenLayers.Layer.OSM("OpenStreetMap" ),
                 
-                new OpenLayers.Layer.Google("Google Satellite",
-                    {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22
-                        }
-                ),
-                new OpenLayers.Layer.Google("Google Hybrid",
-                    {type: google.maps.MapTypeId.HYBRID, 
-                     numZoomLevels: 22, 
-                     visibility: false}
-                ),
-                
                 new OpenLayers.Layer.WMS("Αεροδρόμια",
                     'http://localhost:8080/geoserver/wms', {
                      layers: "aerodromia",
