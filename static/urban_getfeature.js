@@ -94,9 +94,11 @@ Ext.application({
             lines: true
         });
 
-        Ext.create('Ext.Viewport', {
+        Ext.create('Ext.panel.Panel', {
             layout: "fit",
-            hideBorders: true,
+            renderTo: "view",
+            width:1100,
+            height: 500,
             items: {
                 layout: "border",
                 deferredRender: false,
