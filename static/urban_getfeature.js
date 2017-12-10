@@ -8,7 +8,9 @@ Ext.require([
     'GeoExt.tree.BaseLayerContainer',
     'GeoExt.data.LayerTreeModel',
     'GeoExt.tree.View',
-    'GeoExt.tree.Column'
+    'GeoExt.tree.Column',
+    'Ext.layout.container.Accordion',
+    'Ext.grid.property.Grid'
 ]);
 
 var mapPanel, tree;
@@ -31,9 +33,9 @@ Ext.application({
                 /* Base Layers */
                 new OpenLayers.Layer.OSM("OpenStreetMap" ),
                 
-                new OpenLayers.Layer.WMS("Αεροδρόμια",
+                new OpenLayers.Layer.WMS("Αιγιαλοί",
                     'http://localhost:8080/geoserver/wms', {
-                     layers: "aerodromia",
+                     layers: "aigialoi",
                      transparent: true,
                      format: "image/png"
                      }, {
@@ -58,7 +60,37 @@ Ext.application({
                   ), 
             ]
         });
-
+    
+        var gfiControl = new OpenLayers.Control.WMSGetFeatureInfo({
+                 autoActivate: true,
+                 drillDown: true,
+                 infoFormat: "application/vnd.ogc.gml",
+                 maxFeatures: 3,
+                 eventListeners: {
+                    "getfeatureinfo": function(e) {
+                     var items = [];
+                     Ext.each(e.features, function(feature) {
+                        items.push({
+                           xtype: "propertygrid",
+                           title: feature.fid,
+                           source: feature.attributes
+                      });
+                 });
+                 if (items.length > 0) {
+                    Ext.create('GeoeExt.window.Popup', {
+                       title: "Feature Info",
+                       width: 300,
+                       height: 250,
+                       layout: "accordion",
+                       map: mapPanel,
+                       locaiton: e.xy,
+                       items: items
+                      }).show();
+                     }
+                   }
+                 }
+              });
+                 
 
         var store = Ext.create('Ext.data.TreeStore', {
             model: 'GeoExt.data.LayerTreeModel',
@@ -76,7 +108,8 @@ Ext.application({
                 ]
             }
         });
-
+        
+        mapPanel.map.addControl(gfiControl);
         var layer;
 
         // create the tree with the configuration from above
