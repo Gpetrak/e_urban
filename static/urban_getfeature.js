@@ -10,7 +10,8 @@ Ext.require([
     'GeoExt.tree.View',
     'GeoExt.tree.Column',
     'Ext.layout.container.Accordion',
-    'Ext.grid.property.Grid'
+    'Ext.grid.property.Grid',
+    'GeoExt.window.Popup' 
 ]);
 
 var mapPanel, tree;
@@ -18,6 +19,9 @@ var mapPanel, tree;
 Ext.application({
     name: 'Tree',
     launch: function() {
+      //  var wrap = Ext.get('wrap');
+      //  if(wrap) wrap.destroy();
+
         // create a map panel with some layers that we will show in our layer tree
         // below.
         mapPanel = Ext.create('GeoExt.panel.Map', {
@@ -77,7 +81,7 @@ Ext.application({
                       });
                  });
                  if (items.length > 0) {
-                    Ext.create('GeoeExt.window.Popup', {
+                    Ext.create('GeoExt.window.Popup', {
                        title: "Feature Info",
                        width: 300,
                        height: 250,
@@ -131,7 +135,7 @@ Ext.application({
             layout: "fit",
             renderTo: "view",
             width:1100,
-            height: 500,
+            height: 600,
             items: {
                 layout: "border",
                 deferredRender: false,
