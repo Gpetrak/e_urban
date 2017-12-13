@@ -21,7 +21,7 @@ Ext.application({
     launch: function() {
    
        // destroy the options-toolbar for theme
-       Ext.getCmp('options-toolbar').destroy();
+        Ext.getCmp('options-toolbar').destroy();
 
         // create a map panel with some layers that we will show in our layer tree
         // below.
@@ -38,9 +38,9 @@ Ext.application({
                 /* Base Layers */
                 new OpenLayers.Layer.OSM("OpenStreetMap" ),
                 
-                new OpenLayers.Layer.WMS("Αιγιαλοί",
+                new OpenLayers.Layer.WMS("Ρυμοτομία Χανίων",
                     'http://localhost:8080/geoserver/wms', {
-                     layers: "aigialoi",
+                     layers: "rymotomia",
                      transparent: true,
                      format: "image/png"
                      }, {
@@ -51,18 +51,6 @@ Ext.application({
                      }
                   ),
                              
-                 new OpenLayers.Layer.WMS("Αγροκτήματα",
-                    'http://localhost:8080/geoserver/wms', {
-                     layers: "agroktimata",
-                     transparent: true,
-                     format: "image/png"
-                     }, {
-                     isBaseLayer: false,
-                     visibility: false,
-                     projection: new OpenLayers.Projection("EPSG:900913"),
-                     buffer: 0
-                     }
-                  ), 
             ]
         });
     
