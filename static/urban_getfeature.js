@@ -11,7 +11,8 @@ Ext.require([
     'GeoExt.tree.Column',
     'Ext.layout.container.Accordion',
     'Ext.grid.property.Grid',
-    'GeoExt.window.Popup' 
+    'GeoExt.window.Popup',
+    'GeoExt.Action' 
 ]);
 
 var mapPanel, tree;
@@ -20,19 +21,53 @@ Ext.application({
     name: 'Tree',
     launch: function() {
    
+       var map = new OpenLayers.Map('map');
        // destroy the options-toolbar for theme
-        Ext.getCmp('options-toolbar').destroy();
+        var options_toolbar = Ext.getCmp('options-toolbar');
+        if(options_toolbar) options_toolbar.destroy();
+      
+        ///////////
+        // Tools //
+        ///////////
+
+        var action, actions = {};
+        var toolbarItems = [];
+        // Navigation control and DrawFeature controls
+        // in the same toggle group
+        action = Ext.create('GeoExt.Action', {
+            text: "nav",
+            control: new OpenLayers.Control.Navigation(),
+            map: map,
+            // button options
+            toggleGroup: "draw",
+            allowDepress: false,
+            pressed: true,
+            tooltip: "navigate",
+            // check item options
+            group: "draw",
+            checked: true
+        });
+        actions["nav"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+
+        toolbarItems.push("-");
 
         // create a map panel with some layers that we will show in our layer tree
         // below.
+        
         mapPanel = Ext.create('GeoExt.panel.Map', {
             border: true,
             region: "center",
             // we do not want all overlays, to try the OverlayLayerContainer
-            map: {allOverlays: false},
+            map: map,
             center: new OpenLayers.LonLat(25.0213, 35.1333).transform(
             'EPSG:4326', 'EPSG:900913'),
             zoom: 8,
+            dockedItems: [{
+                xtype: 'toolbar',
+                dock: 'top',
+                items: toolbarItems
+            }],
             layers: [
                                 
                 /* Base Layers */
@@ -102,8 +137,9 @@ Ext.application({
             }
         });
         
+        mapPanel.map.addControl(new OpenLayers.Control.MousePosition()); 
         mapPanel.map.addControl(gfiControl);
-        var layer;
+
 
         // create the tree with the configuration from above
         tree = Ext.create('GeoExt.tree.Panel', {
