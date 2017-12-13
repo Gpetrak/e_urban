@@ -35,7 +35,7 @@ Ext.application({
         // Navigation control and DrawFeature controls
         // in the same toggle group
         action = Ext.create('GeoExt.Action', {
-            text: "nav",
+            text: "navigation",
             control: new OpenLayers.Control.Navigation(),
             map: map,
             // button options
@@ -47,11 +47,59 @@ Ext.application({
             group: "draw",
             checked: true
         });
-        actions["nav"] = action;
+        actions["navigation"] = action;
         toolbarItems.push(Ext.create('Ext.button.Button', action));
 
         toolbarItems.push("-");
 
+        var gfiControl = new OpenLayers.Control.WMSGetFeatureInfo({
+                // autoActivate: true,
+                 drillDown: true,
+                 infoFormat: "application/vnd.ogc.gml",
+                 maxFeatures: 3,
+                 eventListeners: {
+                    "getfeatureinfo": function(e) {
+                     var items = [];
+                     Ext.each(e.features, function(feature) {
+                        items.push({
+                           xtype: "propertygrid",
+                           title: feature.fid,
+                           source: feature.attributes
+                      });
+                 });
+                 if (items.length > 0) {
+                    Ext.create('GeoExt.window.Popup', {
+                       title: "Feature Info",
+                       width: 350,
+                       height: 320,
+                       layout: "accordion",
+                       map: mapPanel,
+                       locaiton: e.xy,
+                       items: items
+                      }).show();
+                     }
+                   }
+                 }
+              });
+        
+        action = Ext.create('GeoExt.Action', {
+            text: "getFeatureInfo",
+            control: gfiControl,
+            map: map,
+            // button options
+            toggleGroup: "draw",
+            allowDepress: false,
+            pressed: true,
+            tooltip: "GetFeatureInfo",
+            // check item options
+            group: "draw",
+            checked: false
+        });
+
+       
+        actions["getFeatureInfo"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+        toolbarItems.push("-");
         // create a map panel with some layers that we will show in our layer tree
         // below.
         
@@ -89,36 +137,6 @@ Ext.application({
             ]
         });
     
-        var gfiControl = new OpenLayers.Control.WMSGetFeatureInfo({
-                 autoActivate: true,
-                 drillDown: true,
-                 infoFormat: "application/vnd.ogc.gml",
-                 maxFeatures: 3,
-                 eventListeners: {
-                    "getfeatureinfo": function(e) {
-                     var items = [];
-                     Ext.each(e.features, function(feature) {
-                        items.push({
-                           xtype: "propertygrid",
-                           title: feature.fid,
-                           source: feature.attributes
-                      });
-                 });
-                 if (items.length > 0) {
-                    Ext.create('GeoExt.window.Popup', {
-                       title: "Feature Info",
-                       width: 350,
-                       height: 320,
-                       layout: "accordion",
-                       map: mapPanel,
-                       locaiton: e.xy,
-                       items: items
-                      }).show();
-                     }
-                   }
-                 }
-              });
-                 
 
         var store = Ext.create('Ext.data.TreeStore', {
             model: 'GeoExt.data.LayerTreeModel',
