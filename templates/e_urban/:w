@@ -9,7 +9,7 @@
   <!-- Basic example styling -->
   <link rel="stylesheet" type="text/css" href="{% static "js/lib/geoext2/examples/shared/example.css" %}"/>
   <link rel="stylesheet" type="text/css" href="{% static "js/lib/geoext2/resources/css/popup-neptune.css" %}"/>
-  <link rel="stylesheet" type="text/css" href="{% static "js/lib/geoext2/resources/css/tree-neptune.css" %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static "js/lib/geoext2/examples/resources/css/tree-neptune.css" %}"/>
   <link rel="stylesheet" type="text/css" href="{% static "js/lib/geoext2/resources/css/popup.css" %}"/>
 
   <!-- Load specific css based on selected theme -->

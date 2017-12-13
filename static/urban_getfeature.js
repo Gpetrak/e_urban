@@ -19,8 +19,9 @@ var mapPanel, tree;
 Ext.application({
     name: 'Tree',
     launch: function() {
-      //  var wrap = Ext.get('wrap');
-      //  if(wrap) wrap.destroy();
+   
+       // destroy the options-toolbar for theme
+       Ext.getCmp('options-toolbar').destroy();
 
         // create a map panel with some layers that we will show in our layer tree
         // below.
@@ -29,9 +30,9 @@ Ext.application({
             region: "center",
             // we do not want all overlays, to try the OverlayLayerContainer
             map: {allOverlays: false},
-            center: new OpenLayers.LonLat(24, 39).transform(
+            center: new OpenLayers.LonLat(25.0213, 35.1333).transform(
             'EPSG:4326', 'EPSG:900913'),
-            zoom: 7,
+            zoom: 8,
             layers: [
                                 
                 /* Base Layers */
@@ -83,8 +84,8 @@ Ext.application({
                  if (items.length > 0) {
                     Ext.create('GeoExt.window.Popup', {
                        title: "Feature Info",
-                       width: 300,
-                       height: 250,
+                       width: 350,
+                       height: 320,
                        layout: "accordion",
                        map: mapPanel,
                        locaiton: e.xy,
@@ -137,8 +138,16 @@ Ext.application({
             items: {
                 layout: "border",
                 deferredRender: false,
-                items: [mapPanel, tree, 
-                ]
+                items: [mapPanel, tree, {
+                    contentEl: "desc",
+                    region: "east",
+                    bodyStyle: {"padding": "5px"},
+                    collapsible: true,
+                    collapseMode: "mini",
+                    split: true,
+                    width: 200,
+                    title: "Περιγραφή"
+                }]
             }
         });
     }
