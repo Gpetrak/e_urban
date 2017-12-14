@@ -35,19 +35,19 @@ Ext.application({
         // Navigation control and DrawFeature controls
         // in the same toggle group
         action = Ext.create('GeoExt.Action', {
-            text: "navigation",
+            text: "Πλοήγηση",
             control: new OpenLayers.Control.Navigation(),
             map: map,
             // button options
             toggleGroup: "draw",
             allowDepress: false,
             pressed: true,
-            tooltip: "navigate",
+            tooltip: "Πλοήγηση",
             // check item options
             group: "draw",
             checked: true
         });
-        actions["navigation"] = action;
+        actions["Πλοήγηση"] = action;
         toolbarItems.push(Ext.create('Ext.button.Button', action));
 
         toolbarItems.push("-");
@@ -83,21 +83,21 @@ Ext.application({
               });
         
         action = Ext.create('GeoExt.Action', {
-            text: "getFeatureInfo",
+            text: "Πληροφορίες",
             control: gfiControl,
             map: map,
             // button options
             toggleGroup: "draw",
             allowDepress: false,
-            pressed: true,
-            tooltip: "GetFeatureInfo",
+            pressed: false,
+            tooltip: "Πληροφορίες",
             // check item options
             group: "draw",
             checked: false
         });
 
        
-        actions["getFeatureInfo"] = action;
+        actions["Πληροφορίες"] = action;
         toolbarItems.push(Ext.create('Ext.button.Button', action));
         toolbarItems.push("-");
         // create a map panel with some layers that we will show in our layer tree
