@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 {% load url from future %}
+{% load static %}
 
 {% block title %} {{ block.super }} {% endblock %}
 
@@ -13,10 +14,14 @@
 
                 {% block content %}
                 <h1>e-Πολεοδομία</h1>
-                <p>Η εφαρμογή δίνει την δυνατότητα στους χρήστες να θέσουν ερωτήματα και να ενημερωθούν σχετικά</br>
-                   με θέματα που αφορούν την Πολεοδομία και την Χωροταξία.</p>
-                <p>Η εφαρμογή βρίσκεται σε beta έκδοση και μπορείτε να πλοηθείτε σε αυτήν από τον παρακάτω σύνδεσμο.</p>
-                <p><a href="/e_urban/e_urban_map">Εφαρμογή e_urban</a></p>
+                <div class="col-sm-5">
+                <p>Η εφαρμογή δίνει την δυνατότητα στους χρήστες να θέσουν ερωτήματα και να ενημερωθoύν για πολεοδομικά και χωροταξικά θέματα.</p>
+                <p>Η εφαρμογή βρίσκεται σε beta έκδοση και μπορείτε να πλοηθείτε σε αυτήν επιλέγοντας το παρακάτω πλήκτρο.</p><br>
+                <a href="/e_urban/e_urban_map" class="btn btn-primary" role="button">e-Πολεοδομία</a>
+                </div>
+                <div class="col-sm-7">
+                <img class="img-thumbnail" src="{% static "img/e_urban_app.png" %}" alt="e_urban_app" width="450" height="250">
+                </div>
                 {% endblock %}
 
             </div>
