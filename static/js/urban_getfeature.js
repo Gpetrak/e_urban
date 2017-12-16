@@ -74,7 +74,7 @@ Ext.application({
                        height: 320,
                        layout: "accordion",
                        map: mapPanel,
-                       locaiton: e.xy,
+                       location: e.xy,
                        items: items
                       }).show();
                      }
@@ -133,6 +133,19 @@ Ext.application({
                      buffer: 0
                      }
                   ),
+                 
+                new OpenLayers.Layer.WMS("oikismoi test",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "oikismoi_2000_crete",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ), 
                              
             ]
         });
