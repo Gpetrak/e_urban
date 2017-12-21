@@ -23,8 +23,15 @@ Ext.application({
    
        var map = new OpenLayers.Map('map');
        // destroy the options-toolbar for theme
-        var options_toolbar = Ext.getCmp('options-toolbar');
-        if(options_toolbar) options_toolbar.destroy();
+       var options_toolbar = Ext.getCmp('options-toolbar');
+       if(options_toolbar) options_toolbar.destroy();
+
+       map.events.register('click', map, handleMapClick);
+
+       function handleMapClick(evt) {
+         var lonlat = map.getLonLatFromViewPortPx(evt.xy);
+         alert("latitude : " + lonlat.lat + ", longitude: " + lonlat.lon);
+         }
       
         ///////////
         // Tools //
