@@ -1,20 +1,37 @@
 {% load static %}
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
-<div class='container'>
-  <table class='table table-hover table-fit'>
-  <thead>
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<table>
   <tr>
-  <th class='col-md-1'>Οικισμός</th>
-  <th class='col-md-1'>Εντός / Εκτός</th>
-  <th class='col-md-1'>ΦΕΚ</th>
+    <th>Οικισμός</th>
+    <th>ΕΝΤΟΣ / ΕΚΤΟΣ</th>
+    <th>ΦΕΚ</th>
   </tr>
-  </thead>
-  <tbody>
-  {% for r in results %}
+  {% for result in results %}
   <tr>
-  <td>{{ r }}</td>
+    <td>{{ result }}</td>
   </tr>
-  </tbody>
   {% endfor %}
-  </table>
-</div>
+</table>
+</body>
+</html>

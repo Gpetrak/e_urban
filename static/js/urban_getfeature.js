@@ -37,7 +37,8 @@ Ext.application({
            url: '/e_urban/ajax/results/',
            method: 'GET',
            params: {
-               'lonlat' : lonlat,
+               'latitude' : lonlat.lat,
+               'longitude': lonlat.lon,   
                'csrfmiddlewaretoken': csrf
              },
            success: function(response) {
