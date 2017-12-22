@@ -30,9 +30,27 @@ Ext.application({
 
        function handleMapClick(evt) {
          var lonlat = map.getLonLatFromViewPortPx(evt.xy);
-         alert("latitude : " + lonlat.lat + ", longitude: " + lonlat.lon);
-         }
-      
+         
+
+         var csrf = Ext.util.Cookies.get('csrftoken');
+         Ext.Ajax.request({ 
+           url: '/e_urban/ajax/results/',
+           method: 'GET',
+           params: {
+               'lonlat' : lonlat,
+               'csrfmiddlewaretoken': csrf
+             },
+           success: function(response) {
+                var text = response.responseText;
+                Ext.Msg.alert('Success', text);
+           }, 
+           failure: function (response) {
+               var text = response.responseText;
+               Ext.Msg.alert('Failure', text);
+               },          
+            }); 
+        }
+ 
         ///////////
         // Tools //
         ///////////
