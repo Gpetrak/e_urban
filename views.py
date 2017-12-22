@@ -27,6 +27,7 @@ def create_get(request):
 
         results.append(location)
 
-        return render_to_response({
+        return render_to_response('e_urban/ajax_response.html',
+                      {
                       'results': results
                       }) 

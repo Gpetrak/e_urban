@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class='container'>
+  <table class='table table-hover table-fit'>
+  <thead>
+  <tr>
+  <th class='col-md-1'>Οικισμός</th>
+  <th class='col-md-1'>Εντός / Εκτός</th>
+  <th class='col-md-1'>ΦΕΚ</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for r in results %}
+  <tr>
+  <td>{{ r }}</td>
+  </tr>
+  </tbody>
+  {% endfor %}
+  </table>
+</div>
