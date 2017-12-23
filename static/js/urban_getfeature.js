@@ -46,7 +46,16 @@ Ext.application({
              },
            success: function(response) {
                 var text = response.responseText;
-                Ext.Msg.alert('Success', text);
+                new GeoExt.Popup({
+                  title: 'My Popup',
+                  location: evt.xy,
+                  width:350,
+                  height: 320,
+                  map: mapPanel,
+                  html: text,
+                  maximizable: true,
+                  collapsible: true
+                  }).show();
            }, 
            failure: function (response) {
                var text = response.responseText;
