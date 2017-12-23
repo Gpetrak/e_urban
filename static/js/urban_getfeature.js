@@ -26,10 +26,13 @@ Ext.application({
        var options_toolbar = Ext.getCmp('options-toolbar');
        if(options_toolbar) options_toolbar.destroy();
 
+       // get map coordinates with a click
        map.events.register('click', map, handleMapClick);
-
+ 
+       // function that stores the coordinates as lonlat and sends an ajax request to the server
        function handleMapClick(evt) {
-         var lonlat = map.getLonLatFromViewPortPx(evt.xy);
+         var toProjection = new OpenLayers.Projection("EPSG:4326");
+         var lonlat = map.getLonLatFromViewPortPx(evt.xy).transform(map.getProjectionObject(), toProjection);
          
 
          var csrf = Ext.util.Cookies.get('csrftoken');
