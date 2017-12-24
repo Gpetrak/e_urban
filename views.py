@@ -41,10 +41,10 @@ def create_get(request):
             # A list to store the results of a layer
             result = []
             information = "Υπό Ανάπτυξη"
+            layer_info = layer_trans[data]
             if not regions:
                 # Build the variables that will be sent into HTML table
                 # Every variable is a column
-                layer_info = layer_trans[data]
                 answer = "Εκτός"
                 region = "--"
                 # database order_by query
@@ -56,7 +56,7 @@ def create_get(request):
                 answer = "Εντός"
                 region = regions[0]
                 nearest_region = "--"
-                result.extend([data, answer, region, nearest_region, information])
+                result.extend([layer_info, answer, region, nearest_region, information])
             return result
         
         # query the database and call inform_user in order to return the messages
