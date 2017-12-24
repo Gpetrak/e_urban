@@ -47,9 +47,9 @@ Ext.application({
            success: function(response) {
                 var text = response.responseText;
                 new GeoExt.Popup({
-                  title: 'My Popup',
+                  title: 'Πολεοδομικές Πληροφορίες',
                   location: evt.xy,
-                  width:350,
+                  width:450,
                   height: 320,
                   map: mapPanel,
                   html: text,
@@ -58,8 +58,8 @@ Ext.application({
                   }).show();
            }, 
            failure: function (response) {
-               var text = response.responseText;
-               Ext.Msg.alert('Failure', text);
+              // var text = response.responseText;
+               Ext.Msg.alert('Failure', 'Please try again...');
                },          
             }); 
         }

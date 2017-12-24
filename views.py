@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.gis.geos import Point
 from crete_gis.e_urban.models import Oikismoi
+from crete_gis.e_urban.models import Natura
 import json
 
 def urban_home(request):
@@ -24,15 +25,24 @@ def create_get(request):
       
         location = Point(longitude, latitude, srid=4326)
         results = []
-
-        in_out = Oikismoi.objects.using('datastore').filter(geom__contains=location)       
+      
+        # information about settlement 
+        settlement = Oikismoi.objects.using('datastore').filter(geom__contains=location)       
         out = 'out'
-        if in_out:
-            results.append(in_out)
+        if settlement:
+            results.append([settlement[0], "http://localhost:8000"])
         else:
-            results.append(out)
+            results.append([out])
+        
+        # information about natura
+        natura = Natura.objects.using('datastore').filter(geom__contains=location)
+        if natura:
+            results.append([natura[0], "http://localhost:8000"])
+        else:
+            results.append([out])
+        
 
-        results.extend([latitude, longitude])
+        # results.extend([latitude, longitude])
 
         return render_to_response('e_urban/ajax_response.html',
                       {

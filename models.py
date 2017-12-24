@@ -21,3 +21,26 @@ class Oikismoi(models.Model):
 
     def __unicode__(self):
         return self.onomasia or u''
+
+class Natura(models.Model):
+    gid = models.IntegerField(primary_key=True)
+    objectid = models.FloatField(blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True)
+    area = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    perimeter = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    hectares = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    sitetype = models.CharField(max_length=6, blank=True)
+    periphery = models.CharField(max_length=48, blank=True)
+    prefecture = models.CharField(max_length=30, blank=True)
+    name_latin = models.CharField(max_length=203, blank=True)
+    geom = models.MultiPolygonField(srid=2100, blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = False
+        db_table = 'natura'
+
+    def __str__(self):
+        return self.name_latin
+
+    def __unicode__(self):
+        return self.name_latin or u''

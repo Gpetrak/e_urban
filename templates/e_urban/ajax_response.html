@@ -14,7 +14,7 @@ td, th {
     padding: 8px;
 }
 
-tr:nth-child(even) {
+th {
     background-color: #dddddd;
 }
 </style>
@@ -29,7 +29,13 @@ tr:nth-child(even) {
   </tr>
   {% for result in results %}
   <tr>
-    <td>{{ result }}</td>
+    <td>{{ result.0 }}</td>
+    <td>{{ result.1 }}</td>
+  </tr>
+  <tr>
+    <th>Natura</th>
+    <th>ΕΝΤΟΣ / ΕΚΤΟΣ</th>
+    <th>ΦΕΚ</th>
   </tr>
   {% endfor %}
 </table>
