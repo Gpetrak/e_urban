@@ -12,7 +12,8 @@ Ext.require([
     'Ext.layout.container.Accordion',
     'Ext.grid.property.Grid',
     'GeoExt.window.Popup',
-    'GeoExt.Action' 
+    'GeoExt.Action',
+    'Ext.Action' 
 ]);
 
 var mapPanel, tree;
@@ -26,15 +27,14 @@ Ext.application({
        var options_toolbar = Ext.getCmp('options-toolbar');
        if(options_toolbar) options_toolbar.destroy();
 
-       // get map coordinates with a click
-       map.events.register('click', map, handleMapClick);
- 
+       /////////////////////////////////////
+       ////functions for handling events////
+       /////////////////////////////////////
+      
        // function that stores the coordinates as lonlat and sends an ajax request to the server
-       function handleMapClick(evt) {
+         function handleMapClick(evt) {
          var toProjection = new OpenLayers.Projection("EPSG:4326");
          var lonlat = map.getLonLatFromViewPortPx(evt.xy).transform(map.getProjectionObject(), toProjection);
-         
-
          var csrf = Ext.util.Cookies.get('csrftoken');
          Ext.Ajax.request({ 
            url: '/e_urban/ajax/results/',
@@ -64,33 +64,8 @@ Ext.application({
             }); 
         }
  
-        ///////////
-        // Tools //
-        ///////////
-
-        var action, actions = {};
-        var toolbarItems = [];
-        // Navigation control and DrawFeature controls
-        // in the same toggle group
-        action = Ext.create('GeoExt.Action', {
-            text: "Πλοήγηση",
-            control: new OpenLayers.Control.Navigation(),
-            map: map,
-            // button options
-            toggleGroup: "draw",
-            allowDepress: false,
-            pressed: true,
-            tooltip: "Πλοήγηση",
-            // check item options
-            group: "draw",
-            checked: true
-        });
-        actions["Πλοήγηση"] = action;
-        toolbarItems.push(Ext.create('Ext.button.Button', action));
-
-        toolbarItems.push("-");
-
-        var gfiControl = new OpenLayers.Control.WMSGetFeatureInfo({
+         // add WMS GetFeatureInfo functionality 
+         var gfiControl = new OpenLayers.Control.WMSGetFeatureInfo({
                 // autoActivate: true,
                  drillDown: true,
                  infoFormat: "application/vnd.ogc.gml",
@@ -119,24 +94,90 @@ Ext.application({
                    }
                  }
               });
-        
+ 
+        ///////////
+        // Tools //
+        ///////////
+
+        var action, actions = {};
+        var toolbarItems = [];
+        // Navigation control and DrawFeature controls
+        // in the same toggle group
         action = Ext.create('GeoExt.Action', {
-            text: "Πληροφορίες",
-            control: gfiControl,
+            text: "Πλοήγηση",
+            control: new OpenLayers.Control.Navigation(),
             map: map,
             // button options
             toggleGroup: "draw",
             allowDepress: false,
+            pressed: true,
+            tooltip: "Πλοήγηση",
+            // check item options
+            group: "draw",
+            checked: true
+        });
+        actions["Πλοήγηση"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+
+        toolbarItems.push("-");
+
+        action = Ext.create('GeoExt.Action', {
+            text: "Feature Info",
+            control: gfiControl,
+            map: map,
+            // button options
+            toggleGroup: "draw",
+            allowDepress: true,
             pressed: false,
-            tooltip: "Πληροφορίες",
+            tooltip: "get Feature info",
             // check item options
             group: "draw",
             checked: false
         });
 
        
-        actions["Πληροφορίες"] = action;
+        actions["Feature Info"] = action;
         toolbarItems.push(Ext.create('Ext.button.Button', action));
+        toolbarItems.push("-");
+
+        action = Ext.create('Ext.Action', {
+            text: "info on",
+            handler: function () {
+                     map.events.register('click', map, handleMapClick);
+                     },
+            map: map,
+            // button options
+            toggleGroup: "draw",
+            allowDepress: true,
+            pressed: false,
+            tooltip: "Πολεοδομικές Πληροφορίες",
+            // check item options
+            group: "draw",
+            checked: false
+        });
+        actions["info on"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+
+        toolbarItems.push("-");
+
+        action = Ext.create('Ext.Action', {
+            text: "info off",
+            handler: function () {
+                     map.events.unregister('click', map, handleMapClick);
+                     },
+            map: map,
+            // button options
+            toggleGroup: "draw",
+            allowDepress: true,
+            pressed: false,
+            //tooltip: "Πολεοδομικές Πληροφορίες",
+            // check item options
+            group: "draw",
+            checked: false
+        });
+        actions["info off"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+
         toolbarItems.push("-");
         // create a map panel with some layers that we will show in our layer tree
         // below.
