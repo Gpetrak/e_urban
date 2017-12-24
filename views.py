@@ -27,6 +27,11 @@ def create_get(request):
         location = Point(longitude, latitude, srid=4326)
         
         layer_list = ['oikismoi', 'natura']
+        
+        # translate the layers in Greek language
+        layer_trans = {'oikismoi': 'Οικισμοί Ν. Χανίων', 
+                      'natura': 'Natura 2000'
+                     }
 
         # A list to store the resulted messages
         results = []
@@ -38,14 +43,15 @@ def create_get(request):
             information = "Υπό Ανάπτυξη"
             if not regions:
                 # Build the variables that will be sent into HTML table
-                # Every vaiable is a column
+                # Every variable is a column
+                layer_info = layer_trans[data]
                 answer = "Εκτός"
                 region = "--"
                 # database order_by query
                 nearest_region = model.objects.using('datastore').distance(location).order_by('distance').first()
             #    nearest_region_obj = geometry=model.objects.using('datastore').get(name_latin=nearest_region)
             #   dist = location.distance(rearest_region_obj.geom)
-                result.extend([data, answer, region, nearest_region, information])
+                result.extend([layer_info, answer, region, nearest_region, information])
             else:
                 answer = "Εντός"
                 region = regions[0]

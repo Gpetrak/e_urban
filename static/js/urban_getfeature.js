@@ -213,9 +213,9 @@ Ext.application({
                      }
                   ),
                  
-                new OpenLayers.Layer.WMS("oikismoi test",
+                new OpenLayers.Layer.WMS("Οικισμοί Ν. Χανίων",
                     'http://localhost:8080/geoserver/wms', {
-                     layers: "oikismoi_2000_crete",
+                     layers: "oikismoi",
                      transparent: true,
                      format: "image/png"
                      }, {
