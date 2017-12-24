@@ -141,7 +141,7 @@ Ext.application({
         toolbarItems.push("-");
 
         action = Ext.create('Ext.Action', {
-            text: "info on",
+            text: "Πολεοδομία on",
             handler: function () {
                      map.events.register('click', map, handleMapClick);
                      },
@@ -155,13 +155,13 @@ Ext.application({
             group: "draw",
             checked: false
         });
-        actions["info on"] = action;
+        actions["Πολεοδομία on"] = action;
         toolbarItems.push(Ext.create('Ext.button.Button', action));
 
         toolbarItems.push("-");
 
         action = Ext.create('Ext.Action', {
-            text: "info off",
+            text: "Πολεοδομία off",
             handler: function () {
                      map.events.unregister('click', map, handleMapClick);
                      },
@@ -175,7 +175,7 @@ Ext.application({
             group: "draw",
             checked: false
         });
-        actions["info off"] = action;
+        actions["Πολεοδομία off"] = action;
         toolbarItems.push(Ext.create('Ext.button.Button', action));
 
         toolbarItems.push("-");
