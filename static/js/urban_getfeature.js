@@ -49,8 +49,8 @@ Ext.application({
                 new GeoExt.Popup({
                   title: 'Πολεοδομικές Πληροφορίες',
                   location: evt.xy,
-                  width:450,
-                  height: 320,
+                  width:800,
+                  height: 400,
                   map: mapPanel,
                   html: text,
                   maximizable: true,

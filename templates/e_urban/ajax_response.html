@@ -23,19 +23,19 @@ th {
 
 <table>
   <tr>
-    <th>Οικισμός</th>
+    <th>Πολεοδομική Πληροφορία</th>
     <th>ΕΝΤΟΣ / ΕΚΤΟΣ</th>
-    <th>ΦΕΚ</th>
+    <th>Περιοχή</th>
+    <th>Πλησιέστερη Περιοχή</th>
+    <th>Πληροφορίες</th>
   </tr>
-  {% for result in results %}
+  {% for r in results %}
   <tr>
-    <td>{{ result.0 }}</td>
-    <td>{{ result.1 }}</td>
-  </tr>
-  <tr>
-    <th>Natura</th>
-    <th>ΕΝΤΟΣ / ΕΚΤΟΣ</th>
-    <th>ΦΕΚ</th>
+    <td>{{ r.0 }}</td>
+    <td>{{ r.1 }}</td>
+    <td>{{ r.2 }}</td>
+    <td>{{ r.3 }}</td>
+    <td>{{ r.4 }}</td>
   </tr>
   {% endfor %}
 </table>
