@@ -5,6 +5,7 @@ from django.contrib.gis.geos import Point
 from crete_gis.e_urban.models import *
 from django.db.models.loading import get_model
 import json
+import os
 
 def urban_home(request):
     return render_to_response('e_urban/e_urban_base.html',
@@ -40,8 +41,8 @@ def create_get(request):
         def inform_user(data, regions, model): 
             # A list to store the results of a layer
             result = []
-            information = "Υπό Ανάπτυξη"
             layer_info = layer_trans[data]
+            information = "--"
             if not regions:
                 # Build the variables that will be sent into HTML table
                 # Every variable is a column
@@ -53,6 +54,8 @@ def create_get(request):
             #   dist = location.distance(rearest_region_obj.geom)
                 result.extend([layer_info, answer, region, nearest_region, information])
             else:
+                if model == "Oikismoi":
+                    information = info_engine(regions, model)
                 answer = "Εντός"
                 region = regions[0]
                 nearest_region = "--"
@@ -75,6 +78,19 @@ def create_get(request):
                 result += i[0].upper() + i[1:]
             return result
         
+         
+        def info_engine(region, model):
+            # retrieve the objectid of a settlement
+            t = model.objects.using('datastore').only('objectid').get(onomasia=region[0]).objectid
+  
+            for dirpath, subdirs, files in os.walk('/e_urban/static'):
+                for i in sorted(files):
+                    if i.endwth(t + ".pdf"):
+                        information = i
+            # build the file's link
+            link_info = "<a href='localhost:8000/e_urban/e_urban_map/" + information + "'>info</a>"
+            return link_info
+
         for i in layer_list:
             # because if table_name = layer_name, model_name = LayerName
             model_name_str = table_to_model(i)
