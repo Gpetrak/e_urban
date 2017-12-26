@@ -54,7 +54,7 @@ def create_get(request):
             #   dist = location.distance(rearest_region_obj.geom)
                 result.extend([layer_info, answer, region, nearest_region, information])
             else:
-                if model == "Oikismoi":
+                if data == "oikismoi":
                     information = info_engine(regions, model)
                 answer = "Εντός"
                 region = regions[0]
@@ -82,13 +82,16 @@ def create_get(request):
         def info_engine(region, model):
             # retrieve the objectid of a settlement
             t = model.objects.using('datastore').only('objectid').get(onomasia=region[0]).objectid
+            t_str = str(t)
   
-            for dirpath, subdirs, files in os.walk('/e_urban/static'):
-                for i in sorted(files):
-                    if i.endwth(t + ".pdf"):
+            for dirpath, subdirs, files in os.walk('/home/gpetr/env/crete-gis/crete_gis/e_urban/static/pdf/'):
+                for i in files:
+                    if i.endswith(t_str + ".pdf"):
                         information = i
-            # build the file's link
-            link_info = "<a href='localhost:8000/e_urban/e_urban_map/" + information + "'>info</a>"
+                        # build the file's link
+                        link_info = "<a href='localhost:8000/e_urban/e_urban_map/" + information + "'>info</a>"
+                    else:
+                        link_info = "Δεν υπάρχει καταχωρημένο έγγραφο γι'αυτή την οντότητα"
             return link_info
 
         for i in layer_list:

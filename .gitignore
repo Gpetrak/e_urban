@@ -3,4 +3,9 @@
 # Temporary files
 *.swp
 
+# pdf files
+*.pdf
+
+# tif files
+*.tif
 migrations
