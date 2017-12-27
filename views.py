@@ -87,13 +87,13 @@ def create_get(request):
   
             for dirpath, subdirs, files in os.walk(LOCAL_ROOT + '/e_urban/static/pdf/'):
                 for i in files:
-                    if i.endswith(t_str + ".pdf"):
+                    if t_str in i:
                         information = i
                         # build the file's link
                         link_info = "<a href='" + SITEURL + "static/pdf/" + information + "' target='_blank'>Έγγραφο pdf</a>"
-                    else:
-                        link_info = "Δεν υπάρχει καταχωρημένο έγγραφο γι'αυτή την οντότητα"
-            return link_info
+                        return link_info
+                link_info = "Δεν υπάρχει καταχωρημένο έγγραφο γι'αυτή την οντότητα"
+                return link_info
 
         for i in layer_list:
             # because if table_name = layer_name, model_name = LayerName
