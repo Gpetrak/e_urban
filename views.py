@@ -18,10 +18,6 @@ def urban_map(request):
                                RequestContext(request)
                              )
 
-def pdf_home(request, filename):
-    docs = open(LOCAL_ROOT + '/e_urban/static/pdf/' + filename, "rb").read()
-    return HttpResponse(docs, mimetype = "application/pdf")
-
 def create_get(request):
     if request.method == 'GET':
         latitude = request.GET.get('latitude')
@@ -94,7 +90,7 @@ def create_get(request):
                     if i.endswith(t_str + ".pdf"):
                         information = i
                         # build the file's link
-                        link_info = "<a href='" + SITEURL + "static/pdf/" + information + "'>Έγγραφο pdf</a>"
+                        link_info = "<a href='" + SITEURL + "static/pdf/" + information + "' target='_blank'>Έγγραφο pdf</a>"
                     else:
                         link_info = "Δεν υπάρχει καταχωρημένο έγγραφο γι'αυτή την οντότητα"
             return link_info
