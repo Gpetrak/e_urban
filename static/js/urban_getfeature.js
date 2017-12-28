@@ -225,6 +225,84 @@ Ext.application({
                      buffer: 0
                      }
                   ), 
+
+                new OpenLayers.Layer.WMS("Αρχαιολογικοί Χώροι Ν. Χανίων",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "arxaiologikoi_xwroi",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+ 
+                new OpenLayers.Layer.WMS("Απαλλοτρίωσεις Ν. Χανίων",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "apallotriwseis",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+ 
+                new OpenLayers.Layer.WMS("Πράξεις Χ/σμού Ν. Ηρακλείου",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "praxeis_xar_2015",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+
+                new OpenLayers.Layer.WMS("ΣΧΟΟΑΠ Κρουσώνα",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "sxooap_krousona",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+
+                new OpenLayers.Layer.WMS("Αναδασμοί Ν. Ηρακλείου",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "anadas_2015",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+
+                new OpenLayers.Layer.WMS("Αναδασμοί Ν.Χανίων",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "anadasmoi",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
                              
             ]
         });

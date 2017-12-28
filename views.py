@@ -28,11 +28,22 @@ def create_get(request):
       
         location = Point(longitude, latitude, srid=4326)
         
-        layer_list = ['oikismoi', 'natura']
+        layer_list = ['oikismoi', 
+                      'natura', 
+                      'arxaiologikoi_xwroi',
+                      'praxeis_xar_2015',
+                      'anadas_2015',
+                      'anadasmoi',
+                      'sxooap_krousona',]
         
         # translate the layers in Greek language
         layer_trans = {'oikismoi': 'Οικισμοί Ν. Χανίων', 
-                      'natura': 'Natura 2000'
+                       'natura': 'Natura 2000',
+                       'arxaiologikoi_xwroi': 'Αρχαιολογικοί Χώροι Ν Χανίων',
+                       'praxeis_xar_2015': 'Πράξεις Χ/σμού Ν. Ηρακλείου',
+                       'anadas_2015': 'Αναδασμοί Ν. Ηρακλείου',
+                       'anadasmoi': 'Αναδασμοί Ν. Χανίων',
+                       'sxooap_krousona': 'ΣΧΟΟΑΠ Κρουσώνα'
                      }
 
         # A list to store the resulted messages
