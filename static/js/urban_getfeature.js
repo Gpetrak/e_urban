@@ -303,6 +303,46 @@ Ext.application({
                      buffer: 0
                      }
                   ),
+
+                new OpenLayers.Layer.WMS("Οικισμοί Ν. Ρεθύμνης",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "oikismoi1",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+ 
+                new OpenLayers.Layer.WMS("Οικοδομικά Τετράγωνα Ν. Χανίων",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "oikodomika_tetragwna",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+
+                new OpenLayers.Layer.WMS("Πόλεις - Χωριά Κρήτης",
+                    'http://localhost:8080/geoserver/wms', {
+                     layers: "vilages_cities",
+                     transparent: true,
+                     format: "image/png"
+                     }, {
+                     isBaseLayer: false,
+                     visibility: false,
+                     projection: new OpenLayers.Projection("EPSG:900913"),
+                     buffer: 0
+                     }
+                  ),
+
                              
             ]
         });
@@ -316,10 +356,11 @@ Ext.application({
                      {
                         plugins: ['gx_baselayercontainer'],
                         expanded: true,
-                        text: "Base Maps"
+                        text: "Βασικά Υπόβαθρα"
                     }, {
                         plugins: ['gx_overlaylayercontainer'],
-                        expanded: true
+                        expanded: true,
+                        text: 'Επιφάνειες'
                     }
                 ]
             }
