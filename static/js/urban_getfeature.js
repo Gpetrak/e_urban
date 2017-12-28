@@ -105,7 +105,7 @@ Ext.application({
         // Navigation control and DrawFeature controls
         // in the same toggle group
         action = Ext.create('GeoExt.Action', {
-            text: "Πλοήγηση",
+            iconCls:'controls_map_navigation',
             control: new OpenLayers.Control.Navigation(),
             map: map,
             // button options
@@ -122,22 +122,84 @@ Ext.application({
 
         toolbarItems.push("-");
 
+         // ZoomIn control
         action = Ext.create('GeoExt.Action', {
-            text: "Feature Info",
+            control: new OpenLayers.Control.ZoomIn(),
+            map: map,
+	    iconCls:'controls_map_zoomin',
+	    tooltip: "Μεγέθυνση"
+        });
+        actions["zoomin"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button',action));
+
+        toolbarItems.push("-");
+
+        // ZoomOut control
+        action = Ext.create('GeoExt.Action', {
+   	    control: new OpenLayers.Control.ZoomOut(),
+	    map: map,
+	    iconCls:'controls_map_zoomout',
+	    tooltip: "Σμίκρυνση"
+        });
+        actions["zoomout"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+
+        toolbarItems.push("-");
+
+        action = Ext.create('GeoExt.Action', {
+            iconCls: 'controls_map_getFeatureInfo',
             control: gfiControl,
             map: map,
             // button options
             toggleGroup: "draw",
             allowDepress: true,
             pressed: false,
-            tooltip: "get Feature info",
+            tooltip: "Πληροφορίες",
             // check item options
             group: "draw",
             checked: false
         });
 
-       
         actions["Feature Info"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+        toolbarItems.push("-");
+
+        // Measure distance control
+        action = Ext.create('GeoExt.Action', {
+	    iconCls:'controls_map_measureline',
+	    control: new OpenLayers.Control.Measure(OpenLayers.Handler.Path, {
+	        eventListeners: {
+	            measure: function(evt) {
+                         alert("Distance: " + evt.measure + " " + evt.units);
+		    } 
+	    } 
+        }),
+        map: map,
+        toggleGroup: "draw",
+        allowDepress: false,
+        tooltip: "Μέτρηση απόστασης",
+        group: "draw"
+        });
+        actions["measure_distance"] = action;
+        toolbarItems.push(Ext.create('Ext.button.Button', action));
+
+        // Measure area control
+        action = Ext.create('GeoExt.Action', {
+    	    iconCls:'controls_map_measurearea',
+	    control: new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {
+	         eventListeners: {
+	             measure: function(evt) {
+		        alert("Area: " + evt.measure + " square " + evt.units);
+		    }
+	    }
+        }),
+        map: map,
+        toggleGroup: "draw",
+        allowDepress: false,
+        tooltip: "Μέτρηση εμβαδού",
+        group: "draw"
+        });
+        actions["measure_distance"] = action;
         toolbarItems.push(Ext.create('Ext.button.Button', action));
         toolbarItems.push("-");
 
@@ -157,7 +219,7 @@ Ext.application({
             // button options
             allowDepress: true,
             pressed: false,
-            tooltip: "Πολεοδομικές Πληροφορίες",
+            tooltip: "Ενεργοποίηση",
             // check item options
             checked: false
         });
@@ -176,7 +238,7 @@ Ext.application({
             toggleGroup: "draw",
             allowDepress: true,
             pressed: false,
-            //tooltip: "Πολεοδομικές Πληροφορίες",
+            tooltip: "Απενεργοποίηση",
             // check item options
             group: "draw",
             checked: false
@@ -184,7 +246,6 @@ Ext.application({
         actions_db["off"] = action_db;
         toolbarItems_db.push(Ext.create('Ext.button.Button', action_db));
 
-        toolbarItems_db.push("-");
         // create a map panel with some layers that we will show in our layer tree
         // below.
         
@@ -232,7 +293,7 @@ Ext.application({
                      }
                   ), 
 
-                new OpenLayers.Layer.WMS("Αρχαιολογικοί Χώροι Ν. Χανίων",
+                new OpenLayers.Layer.WMS("Αρχ/κοί Χώροι Ν. Χανίων",
                     'http://localhost:8080/geoserver/wms', {
                      layers: "arxaiologikoi_xwroi",
                      transparent: true,
@@ -258,7 +319,7 @@ Ext.application({
                      }
                   ),
  
-                new OpenLayers.Layer.WMS("Πράξεις Χ/σμού Ν. Ηρακλείου",
+                new OpenLayers.Layer.WMS("Πράξεις Χ/σμού Ν.Ηρακλείου",
                     'http://localhost:8080/geoserver/wms', {
                      layers: "praxeis_xar_2015",
                      transparent: true,
@@ -323,7 +384,7 @@ Ext.application({
                      }
                   ),
  
-                new OpenLayers.Layer.WMS("Οικοδομικά Τετράγωνα Ν. Χανίων",
+                new OpenLayers.Layer.WMS("Οικ. Τετράγωνα Ν.Χανίων",
                     'http://localhost:8080/geoserver/wms', {
                      layers: "oikodomika_tetragwna",
                      transparent: true,
@@ -392,6 +453,8 @@ Ext.application({
         });
  
         var db_tools = Ext.create('Ext.Panel', {
+            html: "<h3>Εντός ή Εκτός</h3>" +
+                  "<p>Ενεργοποιώντας τα χωρικά ερωτήματα μπορείτε με ένα κλικ στο χάρτη να λάβετε πληροφορίες για πολεοδομικά και χωροταξικά θέματα</p>",
             bodyStyle: {"padding": "5px"},
             border: true,
             region: "north",
@@ -413,11 +476,12 @@ Ext.application({
             bodyStyle: {"padding": "5px"},
             border: true,
             region: "south",
-            title: "Περιγραφή",
+            // title: "Περιγραφή",
            // collapsible: true
         });
 
         var panel_east = Ext.create('Ext.panel.Panel', {
+            title: "e - Πολεοδομία",
             border: true,
             region: "east",
             width: 200,

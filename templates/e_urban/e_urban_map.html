@@ -20,15 +20,42 @@
   <script type="text/javascript" src="{% static "js/lib/geoext2/examples/loader.js" %}"></script>
   <script type="text/javascript" src="{% static "js/urban_getfeature.js" %}"></script>
 
-<div id="desc"><h2>e-Πολεοδομία</h2><br>
-<p>Η εφαρμογή e-Πολεοδομία παρέχει πληροφόρηση που αφορά πολεοδομικά<br>
-   και χωροταξικά θέματα της Περιφέρειας Κρήτης</p>
+<style type="text/css">
+        .controls_map_navigation{
+	background-image: url('/static/img/pan.png');
+        }
 
-<a href="/e_urban/">Επιστροφή</a>
+        .controls_map_getFeatureInfo{
+        background-image: url('/static/img/information.png');
+        }
+
+        .controls_map_zoomin{
+        background-image: url('/static/img/magnifier_zoom_in.png');
+        }
+
+        .controls_map_zoomout{
+        background-image: url('/static/img/magnifier_zoom_out.png');
+        }
+  
+        .controls_map_measurearea {
+        background-image: url('/static/img/ruler_square.png');
+        }
+
+        .controls_map_measureline {
+        background-image: url('/static/img/ruler.png');
+        }
+</style>
+
+
+<div id="desc">
+
 <hr>
 <br>
   <img class="img-thumbnail" src="{% static "img/perifereia_logo.jpg" %}" alt="perifereia_kritis" width="200" height="50">
   <img src="{% static "img/senselab_trans_logo.png" %}">
+<hr>
+<br>
+<button type="button" onclick ="href='/e_urban/'">Επιστροφή</a>
 </div>
 
 
