@@ -13,7 +13,8 @@ Ext.require([
     'Ext.grid.property.Grid',
     'GeoExt.window.Popup',
     'GeoExt.Action',
-    'Ext.Action' 
+    'Ext.Action',
+    'Ext.panel.Panel' 
 ]);
 
 var mapPanel, tree;
@@ -49,7 +50,7 @@ Ext.application({
                 new GeoExt.Popup({
                   title: 'Πολεοδομικές Πληροφορίες',
                   location: evt.xy,
-                  width:800,
+                  width:700,
                   height: 400,
                   map: mapPanel,
                   html: text,
@@ -140,28 +141,33 @@ Ext.application({
         toolbarItems.push(Ext.create('Ext.button.Button', action));
         toolbarItems.push("-");
 
-        action = Ext.create('Ext.Action', {
-            text: "Πολεοδομία on",
+        ////////////////////
+        //////db Tools//////
+        ////////////////////
+
+        var action_db, actions_db = {};
+        var toolbarItems_db = [];
+
+        action_db = Ext.create('Ext.Action', {
+            text: "on",
             handler: function () {
                      map.events.register('click', map, handleMapClick);
                      },
             map: map,
             // button options
-            toggleGroup: "draw",
             allowDepress: true,
             pressed: false,
             tooltip: "Πολεοδομικές Πληροφορίες",
             // check item options
-            group: "draw",
             checked: false
         });
-        actions["Πολεοδομία on"] = action;
-        toolbarItems.push(Ext.create('Ext.button.Button', action));
+        actions_db["on"] = action_db;
+        toolbarItems_db.push(Ext.create('Ext.button.Button', action_db));
 
-        toolbarItems.push("-");
+        toolbarItems_db.push("-");
 
-        action = Ext.create('Ext.Action', {
-            text: "Πολεοδομία off",
+        action_db = Ext.create('Ext.Action', {
+            text: "off",
             handler: function () {
                      map.events.unregister('click', map, handleMapClick);
                      },
@@ -175,10 +181,10 @@ Ext.application({
             group: "draw",
             checked: false
         });
-        actions["Πολεοδομία off"] = action;
-        toolbarItems.push(Ext.create('Ext.button.Button', action));
+        actions_db["off"] = action_db;
+        toolbarItems_db.push(Ext.create('Ext.button.Button', action_db));
 
-        toolbarItems.push("-");
+        toolbarItems_db.push("-");
         // create a map panel with some layers that we will show in our layer tree
         // below.
         
@@ -384,6 +390,44 @@ Ext.application({
             rootVisible: false,
             lines: true
         });
+ 
+        var db_tools = Ext.create('Ext.Panel', {
+            bodyStyle: {"padding": "5px"},
+            border: true,
+            region: "north",
+            title: "Χωρικά Ερωτήματα",
+            dockedItems: [{
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items: toolbarItems_db
+            }],
+            split: true,
+            //collapsible: true,
+            autoScroll: true,
+            rootVisible: false,
+            lines: true
+        });
+    
+        var info = Ext.create('Ext.Panel', {
+            contentEl: "desc",
+            bodyStyle: {"padding": "5px"},
+            border: true,
+            region: "south",
+            title: "Περιγραφή",
+           // collapsible: true
+        });
+
+        var panel_east = Ext.create('Ext.panel.Panel', {
+            border: true,
+            region: "east",
+            width: 200,
+            items: [db_tools, info],
+            split: true,
+            collapsible: true,
+            autoScroll: true,
+            rootVisible: false,
+            lines: true
+        });
 
         Ext.create('Ext.Viewport', {
             layout: "fit",
@@ -391,16 +435,7 @@ Ext.application({
             items: {
                 layout: "border",
                 deferredRender: false,
-                items: [mapPanel, tree, {
-                    contentEl: "desc",
-                    region: "east",
-                    bodyStyle: {"padding": "5px"},
-                    collapsible: true,
-                    collapseMode: "mini",
-                    split: true,
-                    width: 200,
-                    title: "Περιγραφή"
-                }]
+                items: [mapPanel, tree, panel_east]
             }
         });
     }
