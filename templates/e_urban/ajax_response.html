@@ -27,7 +27,8 @@ th {
     <th>ΕΝΤΟΣ / ΕΚΤΟΣ</th>
     <th>Περιοχή</th>
     <th>Πλησιέστερη Περιοχή</th>
-    <th>Πληροφορίες</th>
+    <th>Έγγραφα</th>
+    <th>Χάρτες</th>
   </tr>
   {% for r in results %}
   <tr>
@@ -36,6 +37,7 @@ th {
     <td>{{ r.2 }}</td>
     <td>{{ r.3 }}</td>
     <td>{{ r.4 | safe }}</td>
+    <td>{{ r.5 | safe }}</td>
   </tr>
   {% endfor %}
 </table>

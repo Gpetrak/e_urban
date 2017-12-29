@@ -54,7 +54,8 @@ def create_get(request):
             # A list to store the results of a layer
             result = []
             layer_info = layer_trans[data]
-            information = "--"
+            doc_file = "--"
+            img_file = "--"
             if not regions:
                 # Build the variables that will be sent into HTML table
                 # Every variable is a column
@@ -64,14 +65,16 @@ def create_get(request):
                 nearest_region = model.objects.using('datastore').distance(location).order_by('distance').first()
             #    nearest_region_obj = geometry=model.objects.using('datastore').get(name_latin=nearest_region)
             #   dist = location.distance(rearest_region_obj.geom)
-                result.extend([layer_info, answer, region, nearest_region, information])
+                result.extend([layer_info, answer, region, nearest_region, doc_file, img_file])
             else:
                 if data == "oikismoi":
-                    information = info_engine(regions, model)
+                    pdf_img_file = info_engine(regions, model)
+                    doc_file = pdf_img_file[0]
+                    img_file = pdf_img_file[1]
                 answer = "Εντός"
                 region = regions[0]
                 nearest_region = "--"
-                result.extend([layer_info, answer, region, nearest_region, information])
+                result.extend([layer_info, answer, region, nearest_region, doc_file, img_file])
             return result
         
         # query the database and call inform_user in order to return the messages
@@ -92,6 +95,7 @@ def create_get(request):
         
          
         def info_engine(region, model):
+            link_info = []
             # retrieve the objectid of a settlement
             t = model.objects.using('datastore').only('objectid').get(onomasia=region[0]).objectid
             t_str = str(t)
@@ -101,10 +105,25 @@ def create_get(request):
                     if t_str in i:
                         information = i
                         # build the file's link
-                        link_info = "<a href='" + SITEURL + "static/pdf/" + information + "' target='_blank'>Έγγραφο pdf</a>"
-                        return link_info
-                link_info = "Δεν υπάρχει καταχωρημένο έγγραφο γι'αυτή την οντότητα"
-                return link_info
+                        link_info.append("<a href='" + SITEURL + "static/pdf/" + information + "' target='_blank'>Έγγραφο pdf</a>")
+                        break
+                
+            if len(link_info) == 0:
+                link_info.append("--")
+            #    link_info[0] = "Δεν υπάρχει καταχωρημένο έγγραφο γι'αυτή την οντότητα"
+
+            for dirpath, subdirs, files in os.walk(LOCAL_ROOT + '/e_urban/static/img/tif_files/'):
+                for i in files:
+                    if t_str in i:
+                        information = i
+                        # build the file's link
+                        link_info.append("<a href='" + SITEURL + "static/img/tif_files/" + information + "' target='_blank'>Χάρτης</a>")
+                        break
+            
+            if len(link_info) == 1:
+                link_info.append("--")
+            #    link_info[1] = "Δεν υπάρχει καταχωρημένο έγγραφο γι'αυτή την οντότητα"
+            return link_info
 
         for i in layer_list:
             # because if table_name = layer_name, model_name = LayerName
