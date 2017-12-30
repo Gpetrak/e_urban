@@ -102,7 +102,7 @@ def create_get(request):
   
             for dirpath, subdirs, files in os.walk(LOCAL_ROOT + '/e_urban/static/pdf/'):
                 for i in files:
-                    if t_str in i:
+                    if i.endswith("_" + t_str + ".pdf"):
                         information = i
                         # build the file's link
                         link_info.append("<a href='" + SITEURL + "static/pdf/" + information + "' target='_blank'>Έγγραφο pdf</a>")
@@ -114,7 +114,7 @@ def create_get(request):
 
             for dirpath, subdirs, files in os.walk(LOCAL_ROOT + '/e_urban/static/img/tif_files/'):
                 for i in files:
-                    if t_str in i:
+                    if i.endswith("_" + t_str + ".tif"):
                         information = i
                         # build the file's link
                         link_info.append("<a href='" + SITEURL + "static/img/tif_files/" + information + "' target='_blank'>Χάρτης</a>")
