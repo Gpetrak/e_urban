@@ -268,7 +268,7 @@ Ext.application({
                 new OpenLayers.Layer.OSM("OpenStreetMap" ),
                 
                 new OpenLayers.Layer.WMS("Ρυμοτομία Χανίων",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "rymotomia",
                      transparent: true,
                      format: "image/png"
@@ -281,7 +281,7 @@ Ext.application({
                   ),
                  
                 new OpenLayers.Layer.WMS("Οικισμοί Ν. Χανίων",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "oikismoi",
                      transparent: true,
                      format: "image/png"
@@ -294,7 +294,7 @@ Ext.application({
                   ), 
 
                 new OpenLayers.Layer.WMS("Αρχ/κοί Χώροι Ν. Χανίων",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "arxaiologikoi_xwroi",
                      transparent: true,
                      format: "image/png"
@@ -307,7 +307,7 @@ Ext.application({
                   ),
  
                 new OpenLayers.Layer.WMS("Απαλλοτρίωσεις Ν. Χανίων",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "apallotriwseis",
                      transparent: true,
                      format: "image/png"
@@ -320,7 +320,7 @@ Ext.application({
                   ),
  
                 new OpenLayers.Layer.WMS("Πράξεις Χ/σμού Ν.Ηρακλείου",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "praxeis_xar_2015",
                      transparent: true,
                      format: "image/png"
@@ -333,7 +333,7 @@ Ext.application({
                   ),
 
                 new OpenLayers.Layer.WMS("ΣΧΟΟΑΠ Κρουσώνα",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "sxooap_krousona",
                      transparent: true,
                      format: "image/png"
@@ -346,7 +346,7 @@ Ext.application({
                   ),
 
                 new OpenLayers.Layer.WMS("Αναδασμοί Ν. Ηρακλείου",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "anadas_2015",
                      transparent: true,
                      format: "image/png"
@@ -359,7 +359,7 @@ Ext.application({
                   ),
 
                 new OpenLayers.Layer.WMS("Αναδασμοί Ν.Χανίων",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "anadasmoi",
                      transparent: true,
                      format: "image/png"
@@ -372,7 +372,7 @@ Ext.application({
                   ),
 
                 new OpenLayers.Layer.WMS("Οικισμοί Ν. Ρεθύμνης",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "oikismoi1",
                      transparent: true,
                      format: "image/png"
@@ -385,7 +385,7 @@ Ext.application({
                   ),
  
                 new OpenLayers.Layer.WMS("Οικ. Τετράγωνα Ν.Χανίων",
-                    'http://localhost:8080/geoserver/wms', {
+                    '/geoserver/wms', {
                      layers: "oikodomika_tetragwna",
                      transparent: true,
                      format: "image/png"
@@ -398,8 +398,8 @@ Ext.application({
                   ),
 
                 new OpenLayers.Layer.WMS("Πόλεις - Χωριά Κρήτης",
-                    'http://localhost:8080/geoserver/wms', {
-                     layers: "vilages_cities",
+                    '/geoserver/wms', {
+                     layers: "villages_cities",
                      transparent: true,
                      format: "image/png"
                      }, {
