@@ -454,7 +454,7 @@ Ext.application({
  
         var db_tools = Ext.create('Ext.Panel', {
             html: "<h3>Εντός ή Εκτός</h3>" +
-                  "<p>Ενεργοποιώντας τα χωρικά ερωτήματα μπορείτε με ένα κλικ στο χάρτη να λάβετε πληροφορίες για πολεοδομικά και χωροταξικά θέματα</p>",
+                  "<p>Ενεργοποιώντας τα χωρικά ερωτήματα μπορείτε με ένα κλικ στο χάρτη να λάβετε πληροφορίες για χωροταξικά θέματα</p>",
             bodyStyle: {"padding": "5px"},
             border: true,
             region: "north",
@@ -481,7 +481,7 @@ Ext.application({
         });
 
         var panel_east = Ext.create('Ext.panel.Panel', {
-            title: "e - Πολεοδομία",
+            title: "e - Urban",
             border: true,
             region: "east",
             width: 200,
