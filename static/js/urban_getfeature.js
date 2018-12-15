@@ -267,9 +267,9 @@ Ext.application({
                 /* Base Layers */
                 new OpenLayers.Layer.OSM("OpenStreetMap" ),
                 
-                new OpenLayers.Layer.WMS("Ρυμοτομία Χανίων",
+                new OpenLayers.Layer.WMS("Τμήματα Πολ. Σχεδίων Ν.Χανίων",
                     '/geoserver/wms', {
-                     layers: "rymotomia",
+                     layers: "tmimata_rymotomias_latin7",
                      transparent: true,
                      format: "image/png"
                      }, {
